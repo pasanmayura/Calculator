@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -32,6 +32,19 @@ const App = () => {
       setInput(input + value);
     }
   };
+
+  useEffect(() => {
+    if (input) {
+      try {
+        const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
+        setResult(eval(formattedInput).toString());
+      } catch (error) {
+        setResult('');
+      }
+    } else {
+      setResult('');
+    }
+  }, [input]);
 
   return (
     <View style={styles.container}>
