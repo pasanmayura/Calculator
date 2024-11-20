@@ -10,7 +10,12 @@ const App = () => {
 
   // Function to handle button presses
   const handlePress = (value) => {
-    if (value === 'C') {
+    if (['+', '-', 'x', '÷'].includes(value) && ['+', '-', 'x', '÷'].includes(input.slice(-1))) {
+      return;
+    }else if (value === '%') {
+      setResult((eval(input) / 100).toString());
+      return;
+    } else if (value === 'C') {
       setInput('');
       setResult('');
     } else if (value === "DEL") {
@@ -23,7 +28,7 @@ const App = () => {
         setResult('Error');
       }
     } else {
-      // Append the pressed button value to the current input
+      
       setInput(input + value);
     }
   };
