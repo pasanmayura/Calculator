@@ -49,7 +49,7 @@ const App = () => {
           <TouchableOpacity style={styles.button} onPress={() => handlePress('%')}>
             <Text style={styles.buttonText}>%</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handlePress('/')}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('÷')}>
             <Text style={styles.buttonText}>÷</Text>
           </TouchableOpacity>
         </View>
@@ -65,7 +65,7 @@ const App = () => {
           <TouchableOpacity style={styles.button} onPress={() => handlePress('9')}>
             <Text style={styles.buttonTextGreen}>9</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handlePress('*')}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('x')}>
             <Text style={styles.buttonText}>×</Text>
           </TouchableOpacity>
         </View>
