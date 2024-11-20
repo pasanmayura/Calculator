@@ -138,11 +138,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   inputText: {
-    fontSize: 20, 
+    fontSize: 72, 
     color: '#333',
   },
   resultText: {
-    fontSize: 48, 
+    fontSize: 40, 
     color: '#000',
     fontWeight: 'bold',
   },
