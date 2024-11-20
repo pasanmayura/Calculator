@@ -1,89 +1,116 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
+
 const App = () => {
+  // State to store the current input and the result
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState('');
+
+  // Function to handle button presses
+  const handlePress = (value) => {
+    if (value === 'C') {
+      setInput('');
+      setResult('');
+    } else if (value === "DEL") {
+      setInput(input.slice(0, -1));
+    } else if (value === '=') {
+      try {
+        // Evaluate the input and show the result
+        setResult(eval(input).toString());
+      } catch (error) {
+        setResult('Error');
+      }
+    } else {
+      // Append the pressed button value to the current input
+      setInput(input + value);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      
+      {/* Display Section */}
       <View style={styles.display}>
-        <Text style={styles.inputText}></Text>
-        <Text style={styles.resultText}></Text>
+        <Text style={styles.inputText}>{input}</Text>
+        <Text style={styles.resultText}>{result}</Text>
       </View>
 
-      
+      {/* Buttons Section */}
       <View style={styles.buttonsContainer}>
-        
+        {/* First Row */}
         <View style={styles.row}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('C')}>
             <Text style={styles.buttonText}>C</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress("DEL")}>
             <Icon name="backspace" size={24} color="black" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('%')}>
             <Text style={styles.buttonText}>%</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('/')}>
             <Text style={styles.buttonText}>÷</Text>
           </TouchableOpacity>
         </View>
 
-        
+        {/* Second Row */}
         <View style={styles.row}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('7')}>
             <Text style={styles.buttonTextGreen}>7</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('8')}>
             <Text style={styles.buttonTextGreen}>8</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('9')}>
             <Text style={styles.buttonTextGreen}>9</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('*')}>
             <Text style={styles.buttonText}>×</Text>
           </TouchableOpacity>
         </View>
 
-        
+        {/* Third Row */}
         <View style={styles.row}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('4')}>
             <Text style={styles.buttonTextGreen}>4</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('5')}>
             <Text style={styles.buttonTextGreen}>5</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('6')}>
             <Text style={styles.buttonTextGreen}>6</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('-')}>
             <Text style={styles.buttonText}>−</Text>
           </TouchableOpacity>
         </View>
 
+        {/* Fourth Row */}
         <View style={styles.row}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('1')}>
             <Text style={styles.buttonTextGreen}>1</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('2')}>
             <Text style={styles.buttonTextGreen}>2</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('3')}>
             <Text style={styles.buttonTextGreen}>3</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('+')}>
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
         </View>
 
+        {/* Fifth Row */}
         <View style={styles.row}>
-          <TouchableOpacity style={[styles.button, styles.buttonZero]}>
+          <TouchableOpacity style={[styles.button, styles.buttonZero]} onPress={() => handlePress('0')}>
             <Text style={styles.buttonTextGreen}>0</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => handlePress('.')}>
             <Text style={styles.buttonText}>.</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonEqual}>
+          <TouchableOpacity style={styles.buttonEqual} onPress={() => handlePress('=')}>
             <Text style={styles.buttonTextEqual}>=</Text>
           </TouchableOpacity>
         </View>
