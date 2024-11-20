@@ -17,8 +17,8 @@ const App = () => {
       setInput(input.slice(0, -1));
     } else if (value === '=') {
       try {
-        // Evaluate the input and show the result
-        setResult(eval(input).toString());
+        const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
+        setResult(eval(formattedInput).toString());
       } catch (error) {
         setResult('Error');
       }
