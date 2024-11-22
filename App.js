@@ -75,13 +75,13 @@ const App = () => {
         {/* Second Row */}
         <View style={styles.row}>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('7')}>
-            <Text style={styles.buttonTextGreen}>7</Text>
+            <Text style={styles.buttonTextBlue}>7</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('8')}>
-            <Text style={styles.buttonTextGreen}>8</Text>
+            <Text style={styles.buttonTextBlue}>8</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('9')}>
-            <Text style={styles.buttonTextGreen}>9</Text>
+            <Text style={styles.buttonTextBlue}>9</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('x')}>
             <Text style={styles.buttonText}>×</Text>
@@ -91,13 +91,13 @@ const App = () => {
         {/* Third Row */}
         <View style={styles.row}>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('4')}>
-            <Text style={styles.buttonTextGreen}>4</Text>
+            <Text style={styles.buttonTextBlue}>4</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('5')}>
-            <Text style={styles.buttonTextGreen}>5</Text>
+            <Text style={styles.buttonTextBlue}>5</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('6')}>
-            <Text style={styles.buttonTextGreen}>6</Text>
+            <Text style={styles.buttonTextBlue}>6</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('-')}>
             <Text style={styles.buttonText}>−</Text>
@@ -107,13 +107,13 @@ const App = () => {
         {/* Fourth Row */}
         <View style={styles.row}>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('1')}>
-            <Text style={styles.buttonTextGreen}>1</Text>
+            <Text style={styles.buttonTextBlue}>1</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('2')}>
-            <Text style={styles.buttonTextGreen}>2</Text>
+            <Text style={styles.buttonTextBlue}>2</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('3')}>
-            <Text style={styles.buttonTextGreen}>3</Text>
+            <Text style={styles.buttonTextBlue}>3</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('+')}>
             <Text style={styles.buttonText}>+</Text>
@@ -123,7 +123,7 @@ const App = () => {
         {/* Fifth Row */}
         <View style={styles.row}>
           <TouchableOpacity style={[styles.button, styles.buttonZero]} onPress={() => handlePress('0')}>
-            <Text style={styles.buttonTextGreen}>0</Text>
+            <Text style={styles.buttonTextBlue}>0</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => handlePress('.')}>
             <Text style={styles.buttonText}>.</Text>
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#fff",
   },
-  buttonTextGreen: {
+  buttonTextBlue: {
     fontSize: 24,
     color: "#00b300", 
   },
