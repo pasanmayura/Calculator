@@ -122,11 +122,14 @@ const App = () => {
 
         {/* Fifth Row */}
         <View style={styles.row}>
-          <TouchableOpacity style={[styles.button, styles.buttonZero]} onPress={() => handlePress('0')}>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('.')}>
+            <Text style={styles.buttonText}>.</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.button]} onPress={() => handlePress('0')}>
             <Text style={styles.buttonTextBlue}>0</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handlePress('.')}>
-            <Text style={styles.buttonText}>.</Text>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>( )</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonEqual} onPress={() => handlePress('=')}>
             <Text style={styles.buttonTextEqual}>=</Text>
@@ -172,7 +175,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     backgroundColor: "#fff",
-    borderRadius: 15,
+    borderRadius: 35,
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
@@ -195,7 +198,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     elevation: 4,
-    backgroundColor: "#00b300", // Green color
+    backgroundColor: "#1D24CA", 
   },
   buttonText: {
     fontSize: 24,
@@ -207,12 +210,7 @@ const styles = StyleSheet.create({
   },
   buttonTextBlue: {
     fontSize: 24,
-    color: "#00b300", 
-  },
-  buttonZero: {
-    flex: 2,  // Makes button "0" span across two columns
-    justifyContent: "center",
-    alignItems: "center",
+    color: "#1D24CA", 
   },
 });
 
