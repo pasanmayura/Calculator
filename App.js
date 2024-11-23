@@ -9,7 +9,6 @@ const App = () => {
   const [result, setResult] = useState('');
   const [isResultFinal, setIsResultFinal] = useState(false);
 
-  // Function to handle button presses
   const btnPress = (value) => {
     if (['+', '-', 'x', '÷'].includes(value) && ['+', '-', 'x', '÷'].includes(input.slice(-1))) {
       return;
@@ -25,8 +24,27 @@ const App = () => {
     } 
     else if (value === "DEL") {
       setInput(input.slice(0, -1));
+    }
+    else if (value === '√') {
+      if (input) {
+        try {
+          const number = parseFloat(input);
+          if (number >= 0) {
+            const sqrtResult = Math.sqrt(number).toString();
+            setResult(sqrtResult);
+            setInput('');
+            setIsResultFinal(true); 
+          } else {
+            setInput('');
+            setIsResult('Error'); 
+          }
+        } catch (error) {
+          setResult('Error');
+        }
+      }
     } 
     else if (value === '=') {
+      if (isResultFinal) return;
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
         setResult(eval(formattedInput).toString());
@@ -70,6 +88,10 @@ const App = () => {
     return 40;                        
   };
 
+  const Hr = () => {
+    return <View style={styles.hr} />;
+  };
+
   return (
     <View style={styles.container}>
       {/* Display Section */}
@@ -82,6 +104,16 @@ const App = () => {
         </Text>
       </View>
 
+      <View style={styles.iconContainer}>
+        <TouchableOpacity>
+          <Icon name="backspace" size={32} color="black" onPress={() => btnPress('DEL')}/>
+        </TouchableOpacity>       
+      </View>
+
+      <View>
+          <Hr/>        
+      </View>
+
       {/* Buttons Section */}
       <View style={styles.buttonsContainer}>
         {/* First Row */}
@@ -89,8 +121,8 @@ const App = () => {
           <TouchableOpacity style={styles.button} onPress={() => btnPress('C')}>
             <Text style={styles.buttonText}>C</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => btnPress("DEL")}>
-            <Icon name="backspace" size={24} color="black" />
+          <TouchableOpacity style={styles.button} onPress={() => btnPress('√')}>
+            <Text style={styles.buttonText}>√</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => btnPress('%')}>
             <Text style={styles.buttonText}>%</Text>
@@ -183,8 +215,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f1F1f1',
     borderRadius: 20,
     margin: 5,
-    marginBottom: 15,
+    marginBottom: 5,
     marginTop: 35,
+  },
+  iconContainer: {
+    alignItems: 'flex-end',
+    marginRight: 5,
   },
   inputText: {
     fontSize: 72, 
@@ -244,6 +280,12 @@ const styles = StyleSheet.create({
   buttonTextBlue: {
     fontSize: 24,
     color: "#1D24CA", 
+  },
+  hr: {
+    height: 1, 
+    backgroundColor: 'black', 
+    width: '100%', 
+    marginVertical: 10, 
   },
 });
 
