@@ -55,12 +55,29 @@ const App = () => {
     }
   }, [input]);
 
+  const calculateInputFontSize = () => {
+    if (input.length > 11) return 36; 
+    if (input.length > 7) return 48; 
+    return 72;                        
+  };
+
+  const calculateResultFontSize = () => {
+    if (isResultFinal && result.length <= 7) return 72;
+    else if (isResultFinal && result.length >= 11) return 42;
+    else if (isResultFinal && result.length > 7) return 64;    
+    else if (input.length > 11) return 24; 
+    else if (input.length > 7) return 32; 
+    return 40;                        
+  };
+
   return (
     <View style={styles.container}>
       {/* Display Section */}
       <View style={styles.display}>
-        <Text style={styles.inputText}>{input}</Text>
-        <Text style={[styles.resultText, isResultFinal && styles.resultTextFinal]}>
+        <Text style={[styles.inputText, {fontSize: calculateInputFontSize()} ]}>
+          {input}
+        </Text>
+        <Text style={[styles.resultText, isResultFinal && styles.resultTextFinal, {fontSize: calculateResultFontSize()} ]}>
           {result}
         </Text>
       </View>
@@ -205,7 +222,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     backgroundColor: "#fff",
-    borderRadius: 15,
+    borderRadius: 35,
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
