@@ -11,6 +11,19 @@ const App = () => {
 
   const btnPress = (value) => {
 
+    if (value === '( )') {
+      const openCount = (input.match(/\(/g) || []).length;
+      const closeCount = (input.match(/\)/g) || []).length;
+  
+      // Insert '(' or ')'
+      if (openCount > closeCount && !['+', '-', 'x', '÷', '('].includes(input.slice(-1))) {
+        setInput(input + ')');
+      } else {
+        setInput(input + '(');
+      }
+      return;
+    }
+
     // If the result is final and the user enters a number, the input is reset
     if (isResultFinal && !isNaN(value)) {
       setInput(value);
@@ -280,7 +293,7 @@ const App = () => {
             <Text style={styles.buttonTextBlue}>0</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>( )</Text>
+            <Text style={styles.buttonText} onPress={() => btnPress('( )')}>( )</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonEqual} onPress={() => btnPress('=')}>
             <Text style={styles.buttonTextEqual}>=</Text>
