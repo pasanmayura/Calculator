@@ -10,6 +10,16 @@ const App = () => {
   const [isError, setIsError] = useState(false);
 
   const btnPress = (value) => {
+
+    // If the result is final and the user enters a number, the input is reset
+    if (isResultFinal && !isNaN(value)) {
+      setInput(value);
+      setResult('');
+      setIsResultFinal(false);
+      setIsError(false);
+      return;
+    }
+
     // Avoid entering these characters at the beginning
     if (!input && ['%', '÷', 'x', '+', '.'].includes(value)) {
       return;
