@@ -4,13 +4,17 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 
 const App = () => {
-  // State to store the current input and the result
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
   const [isResultFinal, setIsResultFinal] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const btnPress = (value) => {
+    // Avoid entering these characters at the beginning
+    if (!input && ['%', '÷', 'x', '+', '.'].includes(value)) {
+      return;
+    }
+    // Avoid entering these operants multiple times near each other
     if (['+', '-', 'x', '÷'].includes(value) && ['+', '-', 'x', '÷'].includes(input.slice(-1))) {
       return;
     }
@@ -57,7 +61,7 @@ const App = () => {
         setInput('');
         setIsResultFinal(true);
       } catch (error) {
-        setResult('Error: Test');
+        setResult('Invalid input');
       }
     } 
     else {      
