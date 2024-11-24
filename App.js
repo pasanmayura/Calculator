@@ -14,14 +14,26 @@ const App = () => {
     if (!input && ['%', '÷', 'x', '+', '.'].includes(value)) {
       return;
     }
+
     // Avoid entering these operants multiple times near each other
     if (['+', '-', 'x', '÷'].includes(value) && ['+', '-', 'x', '÷'].includes(input.slice(-1))) {
       return;
     }
+
+    // Zero can not be entered before a digit
+    if (input === '0' && !isNaN(value)) {
+      setInput(value);
+      return;
+    }
+    if (input.endsWith('0') && !isNaN(value)) {
+      setInput(input.slice(0, -1) + value);  
+      return;
+    }
+    
     else if (value === '%') {
       setResult((eval(input) / 100).toString());
       return;
-    }
+    }    
     else if (value === 'C') {
       setInput('');
       setResult('');
