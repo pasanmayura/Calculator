@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-
+import { evaluate, sqrt } from 'mathjs';
 
 const App = () => {
   const [input, setInput] = useState('');
@@ -14,79 +14,113 @@ const App = () => {
     if (!input && ['%', '÷', 'x', '+', '.'].includes(value)) {
       return;
     }
-
+  
     // Avoid entering these operants multiple times near each other
     if (['+', '-', 'x', '÷'].includes(value) && ['+', '-', 'x', '÷'].includes(input.slice(-1))) {
       return;
     }
-
+  
     // Zero can not be entered before a digit
-    if (input === '0' && !isNaN(value)) {
+    if (input === '0' && !isNaN(value) && value !== '.') {
       setInput(value);
       return;
     }
-    if (input.endsWith('0') && !isNaN(value)) {
-      setInput(input.slice(0, -1) + value);  
+  
+    // Allow entering '0.' if the user inputs a decimal
+    if (input === '0' && value === '.') {
+      setInput('0.');
       return;
     }
-    
-    else if (value === '%') {
-      setResult((eval(input) / 100).toString());
+  
+    if (!isNaN(value)) {
+      setInput(input + value);
       return;
-    }    
-    else if (value === 'C') {
+    }
+  
+    if (value === '%') {
+      if (input) {
+        try {
+          const percentage = evaluate(`${input}/100`);
+          setResult(percentage.toString());
+          setIsResultFinal(true);
+        } catch (error) {
+          setResult('Error');
+          setIsError(true);
+        }
+      }
+      return;
+    }
+  
+    if (value === 'C') {
       setInput('');
       setResult('');
       setIsResultFinal(false);
       setIsError(false);
-    } 
-    else if (value === "DEL") {
-      setInput(input.slice(0, -1));
+      return;
     }
-    else if (value === '√') {
+  
+    if (value === 'DEL') {
+      setInput(input.slice(0, -1));
+      return;
+    }
+  
+    if (value === '√') {
       if (input) {
         try {
-          const number = parseFloat(input);
+          const number = evaluate(input);
           if (number >= 0) {
-            const sqrtResult = Math.sqrt(number).toString();
+            const sqrtResult = sqrt(number).toString();
             setResult(sqrtResult);
             setInput('');
-            setIsResultFinal(true); 
-            setIsError(false);
-          } 
-          else if (number < 0) {
+            setIsResultFinal(true);
+          } else {
             setResult('Negative Number');
             setIsError(true);
-            setInput('');
           }
         } catch (error) {
-          setResult('Error: Invalid input');
+          setResult('Error');
           setIsError(true);
         }
       }
-    } 
-    else if (value === '=') {
+      return;
+    }
+  
+    if (value === '=') {
       if (isResultFinal) return;
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
-        setResult(eval(formattedInput).toString());
+        const calculatedResult = evaluate(formattedInput);
+        setResult(calculatedResult.toString());
         setInput('');
         setIsResultFinal(true);
       } catch (error) {
         setResult('Invalid input');
+        setIsError(true);
       }
-    } 
-    else {      
-      setInput(input + value);
-      setIsResultFinal(false);
+      return;
     }
+  
+    setInput(input + value);
+    setIsResultFinal(false);
   };
+  
+
+  // const calculateResult = (formattedInput) => {
+  //   try {
+  //     // Use eval or a safer evaluation method
+  //     const result = eval(formattedInput);  // or use a safer math parsing library
+  //     setResult(result);
+  //   } catch (error) {
+  //     setResult('');
+  //   }
+  // };  
 
   useEffect(() => {
     if (!isError && input) {
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
-        setResult(eval(formattedInput).toString());
+        const liveResult = evaluate(formattedInput);
+        setResult(liveResult.toString());
       } catch (error) {
         setResult('');
       }
@@ -94,6 +128,7 @@ const App = () => {
       setResult('');
     }
   }, [input]);
+  
 
   const calculateInputFontSize = () => {
     if (input.length > 11) return 36; 
