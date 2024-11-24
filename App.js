@@ -101,7 +101,7 @@ const App = () => {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
 
         // Check for division by zero
-        if (formattedInput.includes('/0')) {
+        if (formattedInput.includes('/0') && !formattedInput.includes('/0.')) {
           setResult("Can't divide by 0");
           setIsError(true);
           return;
@@ -131,9 +131,21 @@ const App = () => {
           setIsError(false);
         }
 
+        if (formattedInput.includes('/0') && !formattedInput.includes('/0.')) {
+          setResult("Can't divide by 0");
+          setIsError(true);
+          return;
+        }
+
+        if (formattedInput.includes('/0.')) {
+          setResult('');
+          return;
+        }
+
         const liveResult = evaluate(formattedInput);
         setResult(parseFloat(liveResult.toFixed(5)).toString()); //live answer limited to max 5 decimal places
-      } catch (error) {
+      } 
+      catch (error) {
         setResult('');
       }
     } 
