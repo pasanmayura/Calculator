@@ -90,6 +90,14 @@ const App = () => {
       if (isResultFinal) return;
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
+
+         // Check for division by zero
+        if (formattedInput.includes('/0')) {
+          setResult("Can't divide by 0");
+          setIsError(true);
+          return;
+        }
+
         const calculatedResult = evaluate(formattedInput);
         setResult(parseFloat(calculatedResult.toFixed(5)).toString()); //answer limited to max 5 decimal places
         setInput('');
@@ -106,19 +114,30 @@ const App = () => {
   };
   
   useEffect(() => {
-    if (!isError && input) {
+    if (input) {
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
+
+        if (formattedInput.includes('/0')) {
+          setResult("Can't divide by 0");
+          setIsError(true);
+          return;
+        }
+
+        if (isError) {
+          setIsError(false);
+        }
+
         const liveResult = evaluate(formattedInput);
         setResult(parseFloat(liveResult.toFixed(5)).toString()); //live answer limited to max 5 decimal places
       } catch (error) {
         setResult('');
       }
-    } else if (!isResultFinal && !isError) {
+    } 
+    else if (!isResultFinal && !isError) {
       setResult('');
     }
-  }, [input]);
-  
+  }, [input]);  
 
   const calculateInputFontSize = () => {
     if (input.length > 11) return 36; 
