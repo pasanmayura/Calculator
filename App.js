@@ -43,6 +43,7 @@ const App = () => {
           const percentage = evaluate(`${input}/100`);
           setResult(percentage.toString());
           setIsResultFinal(true);
+          setInput('');
         } catch (error) {
           setResult('Error');
           setIsError(true);
@@ -90,7 +91,7 @@ const App = () => {
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
         const calculatedResult = evaluate(formattedInput);
-        setResult(calculatedResult.toString());
+        setResult(parseFloat(calculatedResult.toFixed(5)).toString()); //answer limited to max 5 decimal places
         setInput('');
         setIsResultFinal(true);
       } catch (error) {
@@ -104,23 +105,12 @@ const App = () => {
     setIsResultFinal(false);
   };
   
-
-  // const calculateResult = (formattedInput) => {
-  //   try {
-  //     // Use eval or a safer evaluation method
-  //     const result = eval(formattedInput);  // or use a safer math parsing library
-  //     setResult(result);
-  //   } catch (error) {
-  //     setResult('');
-  //   }
-  // };  
-
   useEffect(() => {
     if (!isError && input) {
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
         const liveResult = evaluate(formattedInput);
-        setResult(liveResult.toString());
+        setResult(parseFloat(liveResult.toFixed(5)).toString()); //live answer limited to max 5 decimal places
       } catch (error) {
         setResult('');
       }
