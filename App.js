@@ -71,14 +71,23 @@ const App = () => {
           const number = evaluate(input);
           if (number >= 0) {
             const sqrtResult = sqrt(number).toString();
-            setResult(sqrtResult);
-            setInput('');
-            setIsResultFinal(true);
-          } else {
+            if(sqrtResult.length > 8) {
+              setResult(parseFloat(sqrtResult).toFixed(5).toString());
+              setInput('');
+              setIsResultFinal(true);
+            } 
+            else{
+              setResult(sqrtResult);
+              setInput('');
+              setIsResultFinal(true);
+            }            
+          } 
+          else {
             setResult('Negative Number');
             setIsError(true);
           }
-        } catch (error) {
+        } 
+        catch (error) {
           setResult('Error');
           setIsError(true);
         }
@@ -91,7 +100,7 @@ const App = () => {
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
 
-         // Check for division by zero
+        // Check for division by zero
         if (formattedInput.includes('/0')) {
           setResult("Can't divide by 0");
           setIsError(true);
@@ -117,12 +126,6 @@ const App = () => {
     if (input) {
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
-
-        if (formattedInput.includes('/0')) {
-          setResult("Can't divide by 0");
-          setIsError(true);
-          return;
-        }
 
         if (isError) {
           setIsError(false);
