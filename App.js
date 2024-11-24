@@ -8,6 +8,7 @@ const App = () => {
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
   const [isResultFinal, setIsResultFinal] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const btnPress = (value) => {
     if (['+', '-', 'x', '÷'].includes(value) && ['+', '-', 'x', '÷'].includes(input.slice(-1))) {
@@ -21,6 +22,7 @@ const App = () => {
       setInput('');
       setResult('');
       setIsResultFinal(false);
+      setIsError(false);
     } 
     else if (value === "DEL") {
       setInput(input.slice(0, -1));
@@ -34,12 +36,16 @@ const App = () => {
             setResult(sqrtResult);
             setInput('');
             setIsResultFinal(true); 
-          } else {
+            setIsError(false);
+          } 
+          else if (number < 0) {
+            setResult('Negative Number');
+            setIsError(true);
             setInput('');
-            setIsResult('Error'); 
           }
         } catch (error) {
-          setResult('Error');
+          setResult('Error: Invalid input');
+          setIsError(true);
         }
       }
     } 
@@ -51,7 +57,7 @@ const App = () => {
         setInput('');
         setIsResultFinal(true);
       } catch (error) {
-        setResult('Error');
+        setResult('Error: Test');
       }
     } 
     else {      
@@ -61,14 +67,14 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (input) {
+    if (!isError && input) {
       try {
         const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
         setResult(eval(formattedInput).toString());
       } catch (error) {
         setResult('');
       }
-    } else if (!isResultFinal) {
+    } else if (!isResultFinal && !isError) {
       setResult('');
     }
   }, [input]);
@@ -99,7 +105,7 @@ const App = () => {
         <Text style={[styles.inputText, {fontSize: calculateInputFontSize()} ]}>
           {input}
         </Text>
-        <Text style={[styles.resultText, isResultFinal && styles.resultTextFinal, {fontSize: calculateResultFontSize()} ]}>
+        <Text style={[styles.resultText, isResultFinal && styles.resultTextFinal, isError && styles.errorText, {fontSize: calculateResultFontSize()} ]}>
           {result}
         </Text>
       </View>
@@ -286,6 +292,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'black', 
     width: '100%', 
     marginVertical: 10, 
+  },
+  errorText: {
+    color: '#1D24CA'
   },
 });
 
