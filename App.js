@@ -36,7 +36,7 @@ const App = () => {
     }
 
     // Avoid entering these characters at the beginning
-    if (!input && ['%', '÷', 'x', '+', '.'].includes(value)) {
+    if (!input && ['%', '÷', 'x', '+'].includes(value)) {
       return;
     }
   
@@ -123,7 +123,8 @@ const App = () => {
     if (value === '=') {
       if (isResultFinal) return;
       try {
-        const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
+        const sanitizedInput = sanitizeInput(input); // Sanitize input
+        const formattedInput = sanitizedInput.replace(/÷/g, '/').replace(/x/g, '*');
 
         // Check for division by zero
         if (formattedInput.includes('/0') && !formattedInput.includes('/0.')) {
@@ -150,7 +151,8 @@ const App = () => {
   useEffect(() => {
     if (input) {
       try {
-        const formattedInput = input.replace(/÷/g, '/').replace(/x/g, '*');
+        const sanitizedInput = sanitizeInput(input); // Sanitize input
+        const formattedInput = sanitizedInput.replace(/÷/g, '/').replace(/x/g, '*');
 
         if (isError) {
           setIsError(false);
@@ -196,6 +198,11 @@ const App = () => {
 
   const Hr = () => {
     return <View style={styles.hr} />;
+  };
+
+  const sanitizeInput = (input) => {
+    // Replace numbers with leading zeros (e.g., "03" => "3")
+    return input.replace(/(\D|^)0+(\d+)/g, "$1$2");
   };
 
   return (
