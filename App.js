@@ -1,3 +1,5 @@
+//IM/2021/020 Karunathilaka M.A
+
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
