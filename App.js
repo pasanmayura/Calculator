@@ -12,16 +12,10 @@ const App = () => {
   const [isError, setIsError] = useState(false);
 
   const btnPress = (value) => {
-
-    const isExceedingDigitLimit = () => {
-      const parts = input.split(/[\+\-x÷]/); // Split input by operators
-      const lastNumber = parts[parts.length - 1]; // Get the last number
-      return lastNumber.length >= 15; // Check if it exceeds 15 digits
-    };
   
     // Prevent exceeding the digit limit
     if (!isNaN(value) && isExceedingDigitLimit()) {
-      return; // Stop further input
+      return; 
     }
 
     if (value === '( )') {
@@ -190,7 +184,13 @@ const App = () => {
     else if (!isResultFinal && !isError) {
       setResult('');
     }
-  }, [input]);  
+  }, [input]); 
+  
+  const isExceedingDigitLimit = () => {
+    const parts = input.split(/[\+\-x÷]/); // Split input by operators
+    const lastNumber = parts[parts.length - 1]; 
+    return lastNumber.length >= 15; 
+  };
 
   const calculateInputFontSize = () => {
     if (input.length > 11) return 34; 
