@@ -128,8 +128,8 @@ const App = () => {
     if (value === '=') {
       if (isResultFinal) return;
       try {
-        const sanitizedInput = removeZeroInput(input); // Sanitize input
-        const formattedInput = sanitizedInput.replace(/÷/g, '/').replace(/x/g, '*');
+        const removedZeroInput = removeZeroInput(input); 
+        const formattedInput = removedZeroInput.replace(/÷/g, '/').replace(/x/g, '*');
 
         // Check for division by zero
         if (formattedInput.includes('/0') && !formattedInput.includes('/0.')) {
@@ -156,8 +156,8 @@ const App = () => {
   useEffect(() => {
     if (input) {
       try {
-        const sanitizedInput = removeZeroInput(input); // Sanitize input
-        const formattedInput = sanitizedInput.replace(/÷/g, '/').replace(/x/g, '*');
+        const removedZeroInput = removeZeroInput(input); // removedZeroInput input
+        const formattedInput = removedZeroInput.replace(/÷/g, '/').replace(/x/g, '*');
 
         if (isError) {
           setIsError(false);
