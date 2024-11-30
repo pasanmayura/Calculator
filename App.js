@@ -13,6 +13,17 @@ const App = () => {
 
   const btnPress = (value) => {
 
+    const isExceedingDigitLimit = () => {
+      const parts = input.split(/[\+\-x÷]/); // Split input by operators
+      const lastNumber = parts[parts.length - 1]; // Get the last number
+      return lastNumber.length >= 15; // Check if it exceeds 15 digits
+    };
+  
+    // Prevent exceeding the digit limit
+    if (!isNaN(value) && isExceedingDigitLimit()) {
+      return; // Stop further input
+    }
+
     if (value === '( )') {
       const openCount = (input.match(/\(/g) || []).length;
       const closeCount = (input.match(/\)/g) || []).length;
@@ -123,7 +134,7 @@ const App = () => {
     if (value === '=') {
       if (isResultFinal) return;
       try {
-        const sanitizedInput = sanitizeInput(input); // Sanitize input
+        const sanitizedInput = removeZeroInput(input); // Sanitize input
         const formattedInput = sanitizedInput.replace(/÷/g, '/').replace(/x/g, '*');
 
         // Check for division by zero
@@ -151,7 +162,7 @@ const App = () => {
   useEffect(() => {
     if (input) {
       try {
-        const sanitizedInput = sanitizeInput(input); // Sanitize input
+        const sanitizedInput = removeZeroInput(input); // Sanitize input
         const formattedInput = sanitizedInput.replace(/÷/g, '/').replace(/x/g, '*');
 
         if (isError) {
@@ -182,7 +193,7 @@ const App = () => {
   }, [input]);  
 
   const calculateInputFontSize = () => {
-    if (input.length > 11) return 36; 
+    if (input.length > 11) return 34; 
     if (input.length > 7) return 48; 
     return 72;                        
   };
@@ -200,7 +211,7 @@ const App = () => {
     return <View style={styles.hr} />;
   };
 
-  const sanitizeInput = (input) => {
+  const removeZeroInput = (input) => {
     // Replace numbers with leading zeros (e.g., "03" => "3")
     return input.replace(/(\D|^)0+(\d+)/g, "$1$2");
   };
