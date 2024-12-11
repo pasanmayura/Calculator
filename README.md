@@ -13,7 +13,7 @@ This is a simple calculator application developed using React Native with Expo C
 1. Clone the repository to your local machine:
    ```bash
    git clone https://github.com/pasanmayura/Calculator.git
-   cd calculator-app
+   cd calculator
    ```
 
 2. Install dependencies:
